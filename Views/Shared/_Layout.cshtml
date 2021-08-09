@@ -1,0 +1,222 @@
+﻿@{
+    var user_sess = Session["user"] as HocTrucTuyen.Models.Entity.User;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>@ViewBag.Title | Học trực tuyến UTC2</title>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="~/Asset/css/bootstrap.min.css">
+    <link href="~/Asset/user/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <!-- FontAwesome CSS -->
+    <link rel="stylesheet" href="~/Asset/css/font-awesome.min.css">
+
+    <!-- ElegantFonts CSS -->
+    <link rel="stylesheet" href="~/Asset/css/elegant-fonts.css">
+
+    <!-- themify-icons CSS -->
+    <link rel="stylesheet" href="~/Asset/css/themify-icons.css">
+
+    <link href="~/Asset/Admin/notify/css/BrightTheme.css" rel="stylesheet" />
+    <link href="~/Asset/Admin/notify/css/PNotify.css" rel="stylesheet" />
+    <link href="~/Asset/Admin/notify/css/PNotifyBootstrap3.css" rel="stylesheet" />
+    <link href="~/Asset/Admin/notify/css/PNotifyConfirm.css" rel="stylesheet" />
+
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="~/Asset/css/swiper.min.css">
+
+    <!-- Custom CSS -->
+    @*<link href="~/Asset/user/css/startmin.css" rel="stylesheet">*@
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="~/Asset/style.css">
+</head>
+<body>
+    <div class="hero-content">
+        <header class="site-header" style="height:200px">
+            <div class="top-header-bar">
+
+
+                <div class="container-fluid" style=" background-color: white">
+                    <div class="row">
+                        <div class="col-12 col-lg-6 d-none d-md-flex flex-wrap justify-content-center justify-content-lg-start mb-3 mb-lg-0">
+                            <div class="header-bar-email d-flex align-items-center">
+                                <i class="fa fa-envelope"></i><a href="#">ntnhien19091999@gmail.com</a>
+                            </div><!-- .header-bar-email -->
+
+                            <div class="header-bar-text lg-flex align-items-center">
+                                <p><i class="fa fa-phone"></i>0971-214-034 </p>
+                            </div><!-- .header-bar-text -->
+                        </div><!-- .col -->
+
+                        <div class="col-12 col-lg-6 d-flex flex-wrap justify-content-center justify-content-lg-end align-items-center">
+                            <div class="header-bar-search">
+                                <form class="flex align-items-stretch" action="/Timkiem/Search" method="get">
+                                    <input type="search" placeholder="Bạn muốn tìm kiếm khóa học?" name="keyword" id="txtKeyword" required>
+                                    <button type="submit" value="" class="flex justify-content-center align-items-center"><i class="fa fa-search"></i></button>
+                                </form>
+                            </div><!-- .header-bar-search -->
+
+                            <div class="header-bar-menu" style="margin-right: 40px;">
+                                <ul class="flex justify-content-center align-items-center py-2 pt-md-0 ">
+                                    @if (user_sess != null)
+                                    {
+                                        <li class="dropdown">
+                                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                                <i class="fa fa-user fa-fw"></i> @user_sess.FullName <b class="caret"></b>
+                                            </a>
+                                            <ul class="dropdown-menu">
+                                                @*<li>
+                                                        <a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                                                    </li>*@
+                                                <li>
+                                                    <a href="/User/HistoryTest"><i class="fa fa-gear fa-fw"></i>Lịch sử thi trắc nghiệm</a>
+                                                </li>
+                                                <li class="divider"></li>
+                                                <li>
+                                                    <a href="/User/Logout"><i class="fa fa-sign-out fa-fw"></i> Đăng xuất</a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    }
+                                    else
+                                    {
+                                        <li><a href="/User/Register">Đăng ký</a></li>
+                                        <li><a href="/User">Đăng nhập</a></li>
+                                    }
+                                </ul>
+                            </div><!-- .header-bar-menu -->
+                        </div><!-- .col -->
+                    </div><!-- .row -->
+                </div><!-- .container-fluid -->
+            </div><!-- .top-header-bar -->
+
+            <div class="nav-bar">
+                <div class="container" >
+                    <div class="row" >
+                        <div class="col-9 col-lg-3" style="margin-bottom:30px; margin-top : -60px">
+                            <div class="site-branding">
+                                <p style="margin-bottom:30px" >
+                                    <h1 class="site-title" style="padding-top:70px"><a href="/" rel="home" style="color:white">MON<span style="color:antiquewhite">KEY</span></a></h1>
+                                </p>
+                            </div><!-- .site-branding -->
+                        </div><!-- .col -->
+
+                        <div class="col-3 col-lg-9 flex justify-content-end align-content-center" style="margin-top:-30px">
+                            <nav class="site-navigation flex justify-content-end align-items-center">
+                                <ul class="flex flex-column flex-lg-row justify-content-lg-end align-content-center" style="width: 100pc;  ">
+                                    <li><a href="/">Trang chủ</a></li>
+
+                                    <li>@Html.ActionLink("Khóa Học", "KH", "Subject")</li>
+                                    <li>@Html.ActionLink("Blog", "Blog", "User")</li>
+                                    <li>@Html.ActionLink("Liên hệ", "send", "SendEmail")</li>
+
+                                </ul>
+
+
+                                <div class="hamburger-menu d-lg-none">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </div><!-- .hamburger-menu -->
+
+                                <div class="header-bar-cart">
+                                    <a href="#" class="flex justify-content-center align-items-center"><span aria-hidden="true" class="icon_bag_alt"></span></a>
+                                </div><!-- .header-bar-search -->
+                            </nav><!-- .site-navigation -->
+                        </div><!-- .col -->
+                    </div><!-- .row -->
+                </div><!-- .container -->
+            </div><!-- .nav-bar -->
+        </header><!-- .site-header -->
+
+
+    </div><!-- .hero-content style="background: url(images/2.jpg no-repeat center;background-size: cover;" -->
+
+    @RenderBody()
+
+
+
+    <footer class="site-footer">
+        <div class="footer-widgets">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 col-md-6 col-lg-3">
+                        <div class="foot-about">
+
+                            <p class="footer-copyright">
+                                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                                Copyright &copy;
+                                <script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Hien</a>
+                                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                            </p>
+                        </div><!-- .foot-about -->
+                    </div><!-- .col -->
+
+                    <div class="col-12 col-md-6 col-lg-3 mt-5 mt-md-0">
+                        <div class="foot-contact">
+                            <h2>Liên hệ</h2>
+
+                            <ul>
+                                <li>Email: ntnhien190919999@gmail.com</li>
+                                <li>Phone: (+88) 971 214 034</li>
+                                <li>Address: 450 Lê Văn Việt, Quận 9, Thành Phố Thủ Đức</li>
+                            </ul>
+                        </div><!-- .foot-contact -->
+                    </div><!-- .col -->
+
+                    <div class="col-12 col-md-6 col-lg-3 mt-5 mt-lg-0">
+                        <div class="quick-links flex flex-wrap">
+                            <h2 class="w-100">Truy cập</h2>
+
+                            <ul class="w-50">
+                                <li><a href="#">About </a></li>
+                                <li><a href="#">Terms of Use </a></li>
+                                <li><a href="#">Privacy Policy </a></li>
+                                <li><a href="#">Contact Us</a></li>
+                            </ul>
+
+
+                        </div><!-- .quick-links -->
+                    </div><!-- .col -->
+
+                    <div class="col-12 col-md-6 col-lg-3 mt-5 mt-lg-0">
+                        <div class="follow-us">
+                            <h2>Follow chúng tôi</h2>
+
+                            <ul class="follow-us flex flex-wrap align-items-center">
+                                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                                <li><a href="#"><i class="fa fa-instagram"></i></a></li>
+                                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                            </ul>
+                        </div><!-- .quick-links -->
+                    </div><!-- .col -->
+                </div><!-- .row -->
+            </div><!-- .container -->
+        </div><!-- .footer-widgets -->
+
+    </footer><!-- .site-footer -->
+    @*<script type='text/javascript' src="~/Asset/js/jquery.js"></script>*@
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script type='text/javascript' src="~/Asset/js/swiper.min.js"></script>
+    <script type='text/javascript' src="~/Asset/js/masonry.pkgd.min.js"></script>
+    <script type='text/javascript' src="~/Asset/js/jquery.collapsible.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script type='text/javascript' src="~/Asset/js/custom.js"></script>
+    <script src="~/Asset/Admin/notify/js/notify.js"></script>
+    <script src="~/Asset/Admin/notify/js/PNotify.js"></script>
+    <script src="~/Asset/Admin/notify/js/PNotifyBootstrap3.js"></script>
+    <script src="~/Asset/Admin/notify/js/PNotifyConfirm.js"></script>
+    @RenderSection("jsFooter", required: false)
+
+</body>
+</html>

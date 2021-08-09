@@ -1,0 +1,71 @@
+﻿
+@{
+    ViewBag.Title = "Search";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model PagedList.IPagedList<HocTrucTuyen.Models.Entity.Course>
+@using PagedList.Mvc
+@{
+    ViewBag.Title = "Kết quả tìm kiếm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="featured-courses vertical-column courses-wrap">
+    <div class="container">
+        <div class="row mx-m-25">
+            <div class="col-12 px-25">
+                <header class="heading flex flex-wrap justify-content-between align-items-center">
+                    <h2 class="entry-title">Kết quả tìm kiếm với từ khóa: <span style="color: blue">@ViewBag.Keyword</span></h2>
+                </header><!-- .heading -->
+            </div><!-- .col -->
+
+            @foreach (var item in Model)
+            {
+                var url = item.Course_Detail + "-" + item.ID;
+                <div class="col-12 col-md-6 col-lg-4 px-25">
+                    <div class="course-content">
+                        <figure class="course-thumbnail">
+                            <a href="/Course/Detail/@item.ID"><img src="@item.Images" alt="" style="width:100%; height:100%"></a>
+                        </figure><!-- .course-thumbnail -->
+
+                        <div class="course-content-wrap">
+                            <header class="entry-header">
+                                <h2 class="entry-title"><a href="/Course/Detail/@item.ID">@item.Title</a></h2>
+
+                                <div class="entry-meta flex align-items-center">
+                                  @*  <div class="course-author"><a href="#">@item.Teacher_Name</a></div>*@
+
+                                    <div class="course-date">@item.CreatedDate.Value.ToString("dd-MM-yyyy")</div>
+                                </div><!-- .course-date -->
+                            </header><!-- .entry-header -->
+
+                            <footer class="entry-footer flex justify-content-between align-items-center">
+                                <div class="col-md-2 course-cost">
+                                    <span class="free-cost">Free</span>
+                                </div><!-- .course-cost -->
+
+                            </footer><!-- .entry-footer -->
+                        </div><!-- .course-content-wrap -->
+                    </div>
+
+                    
+
+
+                </div><!-- .row -->
+           <!-- .container -->
+            }
+       
+
+</section><!-- .courses-wrap -->
+
+<section class="featured-courses vertical-column courses-wrap">
+    <div class="col-12 px-25 flex justify-content-center">
+        @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount
+        @Html.PagedListPager(Model, page => Url.Action("Search", new { keyword = ViewBag.KeyWord, page, pagesize = Model.PageSize }))
+    </div>
+   @* <div class="container">
+        @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount
+        @Html.PagedListPager(Model, page => Url.Action("Search", new { keyword = ViewBag.KeyWord, page, pagesize = Model.PageSize }))
+    </div>*@
+</section>

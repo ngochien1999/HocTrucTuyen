@@ -1,0 +1,194 @@
+﻿
+@{
+    ViewBag.Title = "Quản lý bài giảng";
+    Layout = "~/Areas/Admin/Views/Shared/_layout.cshtml";
+    int dem = 1;
+}
+
+
+@model PagedList.IPagedList<HocTrucTuyen.Models.DTO.CourseDTO>
+@using PagedList.Mvc
+
+
+
+<div id="page-wrapper" style="min-height: 356px;">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header">Quản lý bài giảng</h1>
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+        <div class="row">
+            @if (TempData["add_success"] != null)
+            {
+                <div class="alert alert-success text-center" id="AlertBox">
+                    @TempData["add_success"]
+                </div>
+            }
+        </div>
+        <!-- /.row -->
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel panel-default">
+                    @*<div class="panel-heading">
+                            DataTables Advanced Tables
+                        </div>*@
+                    <!-- /.panel-heading -->
+                    <div class="panel-body">
+                        <div class="table-responsive">
+                            <div id="dataTables-example_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+                                <div class="row">
+                                    <div class="col-sm-6" style="margin-bottom: 10px;">
+                                        <div class="right">
+                                            <button class="btn btn-success btnAddCourse"><i class="fa fa-plus"></i>Thêm mới</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <table class="table table-striped table-bordered table-hover dataTable no-footer" id="dataTables-example" role="grid" aria-describedby="dataTables-example_info">
+                                            <thead>
+                                                <tr role="row">
+                                                    <th class="sorting_asc text-center" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending" style="width: 20px;">
+                                                        STT
+                                                    </th>
+                                                    <th class="sorting text-center" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 209px;">
+                                                        Title
+                                                    </th>
+                                                    <th class="sorting text-center" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" style="width: 192px;">
+                                                        Nội dung
+                                                    </th>
+                                                    <th class="sorting text-center" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" style="width: 192px;">
+                                                        Giáo viên soạn
+                                                    </th>
+                                                    <th class="sorting text-center" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" style="width: 192px;">
+                                                        Ngày tạo
+                                                    </th>
+                                                    <th tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending" style="width: 103px;">
+
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (var item in Model)
+                                                {
+
+                                                    <tr class="gradeA odd" role="row">
+                                                        <td class="sorting_1">@dem</td>
+                                                        <td>@item.Title</td>
+                                                        <td><div class="scoll_description">@Html.Raw(item.Description)</div></td>
+                                                        <td class="text-center">@item.Teacher_Name</td>
+                                                        <td class="text-center">@item.CreatedDate</td>
+                                                        <td class="center text-center" style="width: 150px">
+                                                            <a class="btn btn-info" href="/Admin/Course_Detail/Index/@item.ID" title="Chi tiết các bài giảng" ><i class="fa fa-info-circle"></i></a>
+                                                            <button class="btn btn-primary btnEditCourse" title="Sửa bài giảng" data-id="@item.ID"><i class="fa fa-pencil-square-o"></i></button>
+                                                            <button class="btn btn-danger btnDeleteCourse" title="Xóa bài giảng" data-id="@item.ID"><i class="fa fa-times"></i></button>
+                                                        </td>
+                                                    </tr>
+                                                    dem++;
+                                                }
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- /.panel-body -->
+                </div>
+                <!-- /.panel -->
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+</div>
+
+
+@section jsFooter{
+
+    <script type="text/javascript">
+        $(function () {
+            //nếu không có thao tác gì thì ẩn đi
+            $('#AlertBox').removeClass('hide');
+
+            //Sau khi hiển thị lên thì delay 1s và cuộn lên trên sử dụng slideup
+            $('#AlertBox').delay(2000).slideUp(500);
+
+
+            $('.btnDeleteCourse').off('click').on('click', function () {
+                const notice = PNotify.notice({
+                    title: 'Thông báo',
+                    text: 'Bạn thật sự muốn xóa?',
+                    icon: 'fa fa-question-circle',
+                    width: '360px',
+                    minHeight: '110px',
+                    hide: false,
+                    closer: false,
+                    sticker: false,
+                    destroy: true,
+                    stack: new PNotify.Stack({
+                        dir1: 'down',
+                        modal: true,
+                        firstpos1: 25,
+                        overlayClose: false
+                    }),
+                    modules: new Map([
+                        ...PNotify.defaultModules,
+                        [PNotifyConfirm, {
+                            confirm: true
+                        }]
+                    ])
+                });
+
+                notice.on('pnotify:confirm', () =>
+                    $.ajax({
+                        data: { id: $(this).data('id') },
+                        url: '/Admin/Course/deleteCourse',
+                        dataType: 'Json',
+                        type: 'POST',
+                        success: function (res) {
+                            if (res.status == true) {
+                                
+                                window.location.href = "/Admin/Course/Index";
+                                PNotify.success({
+                                    title: 'THÔNG BÁO!!',
+                                    text: 'Xóa khóa học thành công.'
+                                });
+                            } else {
+                                
+                                window.location.href = "/Admin/Course/Index";
+                                PNotify.error({
+                                    title: 'THÔNG BÁO!!',
+                                    text: 'Xóa khóa học KHÔNG thành công.'
+                                });
+                            }
+                        }
+                    })
+
+                );
+
+
+            });
+        });
+        $('.btnEditCourse').click(function () {
+            window.location.href = "/Admin/Course/edit/" + $(this).data('id');
+        });
+
+
+        $('.btnAddCourse').click(function () {
+            window.location.href = "/Admin/Course/add";
+        });
+
+    </script>
+}
+
+
+
+
+

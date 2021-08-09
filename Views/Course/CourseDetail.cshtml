@@ -1,0 +1,37 @@
+﻿@{
+    var detail = ViewBag.CourseDetail as HocTrucTuyen.Models.Entity.Course_Detail;
+    ViewBag.Title = detail.Name;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    
+}
+
+<div class="container">
+
+    <div class="row">
+        <div class="col-12 col-lg-12">
+            <div class="single-course-wrap">
+                <div class="single-course-cont-section">
+                    <h2  style="background-color:wheat; color:black">@detail.Name</h2>
+                </div>
+                <div class="course-info flex flex-wrap align-items-center">
+                    <div class="course-author flex flex-wrap align-items-center mt-3">
+                        <div class="author-wrap">
+                            <label class="m-0">Đăng ngày: @detail.Created_Date.Value.ToString("dd/MM/yyyy") lúc @detail.Created_Date.Value.ToString("hh:mm:ss tt")</label>
+                            <div class="author-name"></div>
+                        </div><!-- .author-wrap -->
+                    </div><!-- .course-author -->
+                    <div class="buy-course mt-3">
+                        @*<a class="btn" href="#">Làm bài tập</a>*@
+                    </div>
+                </div><!-- .course-info -->
+                <iframe width="1000" height="763" src="@detail.Link.Trim()" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <div class="single-course-cont-section">
+                    @Html.Raw(detail.Descriptions)
+                </div>
+
+            </div><!-- .single-course-wrap -->
+        </div><!-- .col -->
+    </div><!-- .row -->
+</div>
+
+

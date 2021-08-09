@@ -1,0 +1,106 @@
+﻿
+@{
+    ViewBag.Title = "Kết quả bài làm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var answered = ViewBag.Answered as List<HocTrucTuyen.Models.DTO.TestDTO>;
+    var lstanswer = ViewBag.lstAnswer as List<HocTrucTuyen.Models.Entity.Answer>;
+    var lstquestion = ViewBag.lstQuestion as List<HocTrucTuyen.Models.Entity.Question>;
+    int stt = 1;
+}
+
+    <section class="featured-courses horizontal-column courses-wrap">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <header class="heading flex justify-content-between align-items-center">
+                        <h2 class="entry-title">kết quả trắc nghiệm: <span style="color: blue;">@ViewBag.point/@answered.Count</span></h2>
+                    </header>
+                    <!-- .heading -->
+                </div>
+                    @foreach (var item in lstquestion)
+                    {
+
+                        <div class="col-12 col-lg-6">
+                            <div class="course-content flex flex-wrap justify-content-between align-content-lg-stretch">
+                                <div class="col-md-12">
+                                    <fieldset>
+                                        @*<legend>*@
+                                        <div class="clearfix">
+                                            Câu &nbsp<strong>@stt.</strong>
+                                            <span>
+                                                @item.Description
+                                                <input type="hidden" name="Question_ID" value="@item.ID" />
+                                            </span>
+                                        </div>
+                                        @*</legend>*@
+
+                                        <div class="clearfix">
+
+                                            @foreach (var jtem in lstanswer)
+                                            {
+                                                foreach (var ans in answered)
+                                                {
+                                                    if (jtem.Question_ID == item.ID)
+                                                    {
+                                                        if (jtem.ID == ans.Answer_ID && ans.Status == true)
+                                                        {
+                                                            <div class="col-md-12">
+                                                                <label>
+                                                                    <i class="fa fa-check" style="color: blue;"></i>
+                                                                    <input type="radio" name="Answer_Description" value="@jtem.ID">
+                                                                    <span>@jtem.Description</span>
+                                                                    <br>
+                                                                </label>
+                                                            </div>
+                                                        }
+                                                        else if (jtem.ID == ans.Answer_ID && ans.Status == false)
+                                                        {
+                                                            <div class="col-md-12">
+                                                                <label>
+                                                                    <i class="fa fa-times" style="color: red"></i>
+                                                                    <input type="radio" name="Answer_Description" value="@jtem.ID">
+                                                                    <span>@jtem.Description</span>
+                                                                    <br>
+                                                                </label>
+                                                            </div>
+                                                        }
+                                                        else
+                                                        {
+                                                            <div class="col-md-12">
+                                                                <label>
+                                                                    <input type="radio" name="Answer_Description" value="@jtem.ID">
+                                                                    <span>@jtem.Description</span>
+                                                                    <br>
+                                                                </label>
+                                                            </div>
+                                                        }
+
+                                                    }
+                                                }
+
+                                            }
+
+                                        </div>
+                                    </fieldset>
+                                </div>
+                            </div>
+                            <!-- .course-content -->
+                        </div>
+                        stt++;
+                    }
+
+                <div class="col-12 col-lg-12" style="margin-left: 25pc;">
+                    <div class="col-md-4">
+                        <button class="btn btn-lg btn-success">Trang chủ</button>
+                    </div>
+                    <!-- .course-content -->
+                </div>
+
+                <!-- .col -->
+
+            </div>
+            <!-- .row -->
+        </div>
+        <!-- .container -->
+    </section>
+

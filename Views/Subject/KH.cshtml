@@ -1,0 +1,68 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var db = new HocTrucTuyen.Models.Entity.HocTrucTuyenEntities();
+}
+@model PagedList.IPagedList<HocTrucTuyen.Models.DTO.CourseDTO>
+@using PagedList.Mvc
+ 
+
+
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>
+        Các khóa học hay
+    </title>
+</head>
+<body>
+    <section class="featured-courses vertical-column courses-wrap">
+        <div class="container">
+            <div class="row mx-m-25">
+                <div class="col-12 px-25">
+                    <header class="heading flex flex-wrap justify-content-between align-items-center">
+                        <h2 class="entry-title">Khóa học hay</h2>
+                    </header><!-- .heading -->
+                </div><!-- .col -->
+
+                @foreach (var item in db.Courses.ToList())
+                {
+
+
+                    <div class="col-12 col-md-6 col-lg-4 px-25">
+                        <div class="course-content">
+                            <figure class="course-thumbnail">
+                                <a href="/Course/Detail/@item.ID"><img src="@item.Images" alt="" style="width:100%; height:100%"></a>
+                            </figure><!-- .course-thumbnail -->
+
+                            <div class="course-content-wrap">
+                                <header class="entry-header">
+                                    <h2 class="entry-title"><a href="/Course/Detail/@item.ID">@item.Title</a></h2>
+
+                                    <div class="entry-meta flex align-items-center">
+                                       
+
+                                        <div class="course-date">@item.CreatedDate.Value.ToString("dd-MM-yyyy")</div>
+                                    </div><!-- .course-date -->
+                                </header><!-- .entry-header -->
+
+                                <footer class="entry-footer flex justify-content-between align-items-center">
+                                    <div class="col-md-2 course-cost">
+                                        <span class="free-cost">Free</span>
+                                    </div><!-- .course-cost -->
+
+                                </footer><!-- .entry-footer -->
+                            </div><!-- .course-content-wrap -->
+                        </div><!-- .course-content -->
+                    </div><!-- .col -->
+                }
+
+
+               <!-- .col -->
+            </div><!-- .row -->
+        </div><!-- .container -->
+    </section><!-- .courses-wrap -->
+
+</body>
+</html>
+
+

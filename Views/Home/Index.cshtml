@@ -1,0 +1,134 @@
+﻿@{
+    ViewBag.Title = "Học trực tuyến";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model PagedList.IPagedList<HocTrucTuyen.Models.DTO.CourseDTO>
+@using PagedList.Mvc
+
+<div class="icon-boxes">
+    <div class="container-fluid">
+        <div class="flex flex-wrap align-items-stretch">
+            <div class="icon-box">
+                <div class="icon">
+                    <span class="ti-user"></span>
+                </div><!-- .icon -->
+
+                <header class="entry-header">
+                    <h2 class="entry-title">Luyện thi trắc nghiệm bài 1</h2>
+                </header><!-- .entry-header -->
+
+                <div class="entry-content">
+                    <p>Bổ sung kiến thức lập trình C#.</p>
+                </div><!-- .entry-content -->
+
+                <footer class="entry-footer read-more">
+                    <a href="/KT/CheckExcercise1">Vào thi<i class="fa fa-long-arrow-right"></i></a>
+                </footer><!-- .entry-footer -->
+            </div><!-- .icon-box -->
+
+            <div class="icon-box">
+                <div class="icon">
+                    <span class="ti-folder"></span>
+                </div><!-- .icon -->
+
+                <header class="entry-header">
+                    <h2 class="entry-title">Luyện thi trắc nghiệm bài 2</h2>
+                </header><!-- .entry-header -->
+
+                <div class="entry-content">
+                    <p>Bổ sung kiến thức lập trình FONT END.</p>
+                </div><!-- .entry-content -->
+
+                <footer class="entry-footer read-more">
+                    <a href="/KT/CheckExercise2">Vào thi<i class="fa fa-long-arrow-right"></i></a>
+                </footer><!-- .entry-footer -->
+            </div><!-- .icon-box -->
+
+            <div class="icon-box">
+                <div class="icon">
+                    <span class="ti-book"></span>
+                </div><!-- .icon -->
+
+                <header class="entry-header">
+                    <h2 class="entry-title">Luyện thi trắc nghiệm bài 3</h2>
+                </header><!-- .entry-header -->
+
+                <div class="entry-content">
+                    <p>Bổ sung kiến thức chung về lập trình web</p>
+                </div><!-- .entry-content -->
+
+                <footer class="entry-footer read-more">
+                    <a href="/KT/Exercise_TH3">Vào làm<i class="fa fa-long-arrow-right"></i></a>
+                </footer><!-- .entry-footer -->
+            </div><!-- .icon-box -->
+
+            <div class="icon-box">
+                <div class="icon">
+                    <span class="ti-world"></span>
+                </div><!-- .icon -->
+
+                <header class="entry-header">
+                    <h2 class="entry-title">Luyện thi trắc nghiệm bài 4</h2>
+                </header><!-- .entry-header -->
+
+                <div class="entry-content">
+                    <p>Bổ sung kiến thức chung về lập trình web</p>
+                </div><!-- .entry-content -->
+
+                <footer class="entry-footer read-more">
+                    <a href="/KT/Exercise_TH4">Vào làm<i class="fa fa-long-arrow-right"></i></a>
+                </footer><!-- .entry-footer -->
+            </div><!-- .icon-box -->
+
+        </div><!-- .row -->
+    </div><!-- .container-fluid -->
+</div><!-- .icon-boxes -->
+
+
+<section class="featured-courses vertical-column courses-wrap">
+    <div class="container">
+        <div class="row mx-m-25">
+            <div class="col-12 px-25">
+                <header class="heading flex flex-wrap justify-content-between align-items-center">
+                    <h2 class="entry-title">Khóa học hay</h2>
+                </header><!-- .heading -->
+            </div><!-- .col -->
+
+            @foreach (var item in Model)
+            {
+                <div class="col-12 col-md-6 col-lg-4 px-25" >
+                    <div class="course-content" >
+                        <figure class="course-thumbnail">
+                            <a href="/Course/Detail/@item.ID"><img src="@item.Images" alt="" style="width:100%; height:100%"></a>
+                        </figure><!-- .course-thumbnail -->
+
+                        <div class="course-content-wrap">
+                            <header class="entry-header">
+                                <h2 class="entry-title"><a href="/Course/Detail/@item.ID" >@item.Title</a></h2>
+
+                                <div class="entry-meta flex align-items-center">
+                                    <div class="course-author"><a href="#">@item.Teacher_Name</a></div>
+
+                                    <div class="course-date">@item.CreatedDate.Value.ToString("dd-MM-yyyy")</div>
+                                </div><!-- .course-date -->
+                            </header><!-- .entry-header -->
+
+                            <footer class="entry-footer flex justify-content-between align-items-center">
+                                <div class="col-md-2 course-cost">
+                                    <span class="free-cost">Free</span>
+                                </div><!-- .course-cost -->
+
+                            </footer><!-- .entry-footer -->
+                        </div><!-- .course-content-wrap -->
+                    </div><!-- .course-content -->
+                </div><!-- .col -->
+            }
+
+
+            <div class="col-12 px-25 flex justify-content-center">
+                @Html.PagedListPager(Model, page => Url.Action("Index", new { page, pagesize = Model.PageSize }))
+            </div><!-- .col -->
+        </div><!-- .row -->
+    </div><!-- .container -->
+</section><!-- .courses-wrap -->

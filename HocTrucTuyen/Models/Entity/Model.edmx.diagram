@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="b1d725bc3f7f4ba2b4a50fc7b629e670" Name="Diagram1">
+        <EntityTypeShape EntityType="HocTrucTuyenModel.Answer" Width="1.5" PointX="9.75" PointY="8.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="HocTrucTuyenModel.Course" Width="1.5" PointX="3" PointY="5.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="HocTrucTuyenModel.Course_Detail" Width="1.5" PointX="5.25" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="HocTrucTuyenModel.MutipleChoice" Width="1.5" PointX="5.25" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="HocTrucTuyenModel.Question" Width="1.5" PointX="7.5" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HocTrucTuyenModel.Register" Width="1.5" PointX="8.25" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="HocTrucTuyenModel.sysdiagram" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HocTrucTuyenModel.Teacher" Width="1.5" PointX="0.75" PointY="6.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="HocTrucTuyenModel.Test" Width="1.5" PointX="5.25" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="HocTrucTuyenModel.User" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
+        <AssociationConnector Association="HocTrucTuyenModel.FK_Answer_Question" ManuallyRouted="false" />
+        <AssociationConnector Association="HocTrucTuyenModel.FK_Course_Detail_Course" ManuallyRouted="false" />
+        <AssociationConnector Association="HocTrucTuyenModel.FK_Course_Teacher" ManuallyRouted="false" />
+        <AssociationConnector Association="HocTrucTuyenModel.FK_MutipleChoice_Course" ManuallyRouted="false" />
+        <AssociationConnector Association="HocTrucTuyenModel.FK_Register_Course" ManuallyRouted="false" />
+        <AssociationConnector Association="HocTrucTuyenModel.FK_Test_Course" ManuallyRouted="false" />
+        <AssociationConnector Association="HocTrucTuyenModel.FK_Question_MutipleChoice" ManuallyRouted="false" />
+        <AssociationConnector Association="HocTrucTuyenModel.FK_Register_User" ManuallyRouted="false" />
+        <AssociationConnector Association="HocTrucTuyenModel.FK_Test_User" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="HocTrucTuyenModel.Review" Width="1.5" PointX="10.25" PointY="0.875" />
+        <AssociationConnector Association="HocTrucTuyenModel.FK_Review_Course" />
+        <AssociationConnector Association="HocTrucTuyenModel.FK_Review_User" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

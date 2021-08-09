@@ -1,0 +1,184 @@
+﻿@{ 
+    var userAdmin = Session["adminLogin"] as HocTrucTuyen.Models.Entity.User;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>@ViewBag.Title</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="~/Asset/Admin/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- MetisMenu CSS -->
+    <link href="~/Asset/Admin/css/metisMenu.min.css" rel="stylesheet">
+
+    <!-- Timeline CSS -->
+    <link href="~/Asset/Admin/css/timeline.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="~/Asset/Admin/css/startmin.css" rel="stylesheet">
+
+    <!-- Morris Charts CSS -->
+    <link href="~/Asset/Admin/css/morris.css" rel="stylesheet">
+
+    <link href="~/Asset/Admin/datetimepicker/css/bootstrap-datetimepicker.css" rel="stylesheet">
+    <!--Chart-->
+    <link href="~/Asset/Admin/c3/c3.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    @*<link href="~/Asset/Admin/css/PNotifyBrightTheme.css" rel="stylesheet" type="text/css">*@
+
+    <!--typeahead-->
+    @*<link href="~/Asset/Admin/typeahead/jquery.typeahead.css" rel="stylesheet" type="text/css" />*@
+
+    @*<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">*@
+    @*<link href="~/Content/jquery-ui.css" rel="stylesheet" />*@
+
+    <link href="~/Asset/Admin/notify/css/BrightTheme.css" rel="stylesheet" />
+    <link href="~/Asset/Admin/notify/css/PNotify.css" rel="stylesheet" />
+    <link href="~/Asset/Admin/notify/css/PNotifyBootstrap3.css" rel="stylesheet" />
+    <link href="~/Asset/Admin/notify/css/PNotifyConfirm.css" rel="stylesheet" />
+    
+
+    <link href="~/Asset/Admin/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+    @if (userAdmin == null)
+    {
+        Response.Redirect("~/User");
+    }
+    <div id="wrapper">
+
+        <!-- Navigation -->
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="">Quản trị website</a>
+            </div>
+
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+
+            <ul class="nav navbar-nav navbar-left navbar-top-links">
+                <li><a href="#"><i class="fa fa-home fa-fw"></i> Website</a></li>
+            </ul>
+
+            <ul class="nav navbar-right navbar-top-links">
+
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
+                        <i class="fa fa-user fa-fw"></i>@(userAdmin!=null? userAdmin.FullName : "Administrator") <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu dropdown-user">
+                        @*<li>
+                                <a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                            </li>
+                            <li>
+                                <a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
+                            </li>*@
+                        <li class="divider"></li>
+                        <li>
+                            <a href="/User/Logout"><i class="fa fa-sign-out fa-fw"></i>Đăng xuất</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+
+            <div class="navbar-default sidebar" role="navigation">
+                <div class="sidebar-nav navbar-collapse">
+                    <ul class="nav" id="side-menu">
+                        <li class="sidebar-search">
+                            <div class="input-group custom-search-form">
+                                <input type="text" class="form-control" placeholder="Search...">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-primary" type="button">
+                                        <i class="fa fa-search"></i>
+                                    </button>
+                                </span>
+                            </div>
+                            <!-- /input-group -->
+                        </li>
+                        <li>
+                            <a href="/Admin/Home"><i class="fa fa-dashboard fa-fw"></i>Thống kê</a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-users fa-fw"></i> Quản lý học viên<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="/Admin/User/Index">Danh sách học viên</a>
+                                </li>
+                                <li>
+                                    <a href="/Admin/User/Test">Điểm thi</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="/Admin/Course"><i class="fa fa-address-book fa-fw"></i>Quản lý khóa học</a>
+                            <!-- /.nav-second-level -->
+                        </li>
+                        <li>
+                            <a href="/Admin/MutipleChoice"><i class="fa fa-check-circle-o fa-fw"></i>Quản lý bài trắc nghiệm</a>
+                            <!-- /.nav-second-level -->
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        @RenderBody()
+
+    </div>
+    <!-- /#wrapper -->
+    <!-- jQuery -->
+    @*<script src="~/Asset/Admin/js/jquery.min.js"></script>*@
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="~/Asset/Admin/js/bootstrap.min.js"></script>
+
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="~/Asset/Admin/js/metisMenu.min.js"></script>
+
+    <!-- Morris Charts JavaScript -->
+    <script src="~/Asset/Admin/js/raphael.min.js"></script>
+    @*<script src="~/Asset/Admin/js/morris.min.js"></script>*@
+    @*<script src="~/Asset/Admin/js/morris-data.js"></script>*@
+
+    <!-- Custom Theme JavaScript -->
+    <script src="~/Asset/Admin/js/startmin.js"></script>
+    <script src="~/Asset/Admin/notify/js/notify.js"></script>
+    <script src="~/Asset/Admin/notify/js/PNotify.js"></script>
+    <script src="~/Asset/Admin/notify/js/PNotifyBootstrap3.js"></script>
+    <script src="~/Asset/Admin/notify/js/PNotifyConfirm.js"></script>
+    @*<script src="~/Asset/Admin/notify/PNotify.js"></script>
+        <script src="~/Asset/Admin/notify/notify.js"></script>*@
+    @*<script src="~/Asset/Admin/typeahead/jquery.typeahead.js"></script>*@
+    @*<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>*@
+    @*<script src="~/Scripts/jquery-ui.js"></script>*@
+    <script src="~/Asset/Admin/datetimepicker/js/bootstrap-datetimepicker.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="//cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script>
+    <!--Chart-->
+    <script src="~/Asset/Admin/c3/c3.js"></script>
+    <script src="https://d3js.org/d3.v5.min.js" charset="utf-8"></script>
+
+    @RenderSection("jsFooter", required: false)
+
+</body>
+</html>

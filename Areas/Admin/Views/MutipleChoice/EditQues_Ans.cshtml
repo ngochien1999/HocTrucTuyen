@@ -1,0 +1,203 @@
+﻿@{
+    ViewBag.Title = "Sửa câu trắc nghiệm";
+    Layout = "~/Areas/Admin/Views/Shared/_layout.cshtml";
+    var ques = ViewBag.ques as HocTrucTuyen.Models.Entity.Question;
+    var lstAns = ViewBag.lstAns as List<HocTrucTuyen.Models.Entity.Answer>;
+    int dem = 0;
+}
+
+
+<div id="page-wrapper" style="min-height: 356px;">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header">Sửa câu hỏi trắc nghiệm</h1>
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+        <!-- /.row -->
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        Sửa câu hỏi trắc nghiệm
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                @using (Html.BeginForm("EditQuesAns", "MutipleChoice", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                                {
+                                    <input type="hidden" name="Question_ID" value="@ques.ID" />
+                                    <input type="hidden" name="MutipleChoice_ID" value="@ques.MutipleChoice_ID" />
+                                    <div class="form-group col-sm-12">
+                                        <label for="recipient-name" class="col-form-label">Câu hỏi:</label>
+                                        <textarea class="form-control" rows="4" name="Question" required>@ques.Description</textarea>
+                                    </div>
+                                    <div class="form-group col-sm-12" id="IsAnswer">
+                                        @foreach (var item in lstAns)
+                                        {
+                                            <input type="hidden" name="Answers[@dem].ID" value="@item.ID" />
+                                            <div id="dapan_@dem">
+                                                <div class="col-sm-12">
+                                                    <label for="recipient-name" class="col-form-label">Đáp án @(dem + 1):</label>
+                                                </div>
+
+                                                <div class="col-sm-6">
+                                                    <input type="text" name="Answers[@dem].Description" value="@item.Description" class="form-control" required />
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <label class="radio-inline">
+                                                        <input type="radio" name="Status" value="@dem" @(item.Status == true ? "checked" : "")>Đáp án đúng
+                                                    </label>
+                                                </div>
+                                                @if (lstAns.Count >= 3)
+                                                {
+                                                    <div class="col-sm-3">
+                                                        <a class="btn btn-danger btnDelete" data-id="@item.ID"><i class="fa fa-times"></i></a>
+                                                    </div>
+                                                }
+                                            </div>
+                                            dem++;
+                                        }
+
+
+                                    </div>
+
+                                    <div class="form-group col-sm-12">
+                                        <a href="#" id="addAns">Thêm đáp án</a>
+                                    </div>
+                                    <button type="submit" class="btn btn-default">Sửa</button>
+                                }
+
+                            </div>
+
+                        </div>
+                        <!-- /.row (nested) -->
+                    </div>
+                    <!-- /.panel-body -->
+                </div>
+                <!-- /.panel -->
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+</div>
+
+@section jsFooter{
+
+    <script type="text/javascript">
+
+        var dem = @dem;
+        $(document).ready(function () {
+            $('.btnDelete').off('click').on('click', function () {
+                const notice = PNotify.notice({
+                    title: 'Thông báo',
+                    text: 'Bạn thật sự muốn xóa?',
+                    icon: 'fa fa-question-circle',
+                    width: '360px',
+                    minHeight: '110px',
+                    hide: false,
+                    closer: false,
+                    sticker: false,
+                    destroy: true,
+                    stack: new PNotify.Stack({
+                        dir1: 'down',
+                        modal: true,
+                        firstpos1: 25,
+                        overlayClose: false
+                    }),
+                    modules: new Map([
+                        ...PNotify.defaultModules,
+                        [PNotifyConfirm, {
+                            confirm: true
+                        }]
+                    ])
+                });
+
+                notice.on('pnotify:confirm', () =>
+
+
+                    $.ajax({
+                        data: { ID: $(this).data('id') },
+                        url: '/Admin/MutipleChoice/DeleteAnswer',
+                        dataType: 'Json',
+                        type: 'POST',
+                        success: function (res) {
+                            if (res.status == true) {
+
+                                window.location.href = "/Admin/MutipleChoice/EditQues_Ans/" + @ques.ID;
+                                PNotify.success({
+                                    title: 'THÔNG BÁO!!',
+                                    text: 'Xóa câu trả lời thành công.'
+                                });
+                            } else {
+
+                                window.location.href = "/Admin/MutipleChoice/EditQues_Ans/" + @ques.ID;
+                                PNotify.error({
+                                    title: 'THÔNG BÁO!!',
+                                    text: 'Xóa câu trả lời KHÔNG thành công.'
+                                });
+                            }
+                        }
+                    })
+
+                );
+
+
+            });
+
+
+            $('#addAns').off('click').on('click', function () {
+                 if (dem == 2 || dem == 3 || dem == 4) {
+                     if (dem == 3 || dem == 4)
+                         $('#Del_' + (dem - 1)).remove();
+                     var str =
+                        '<input type="hidden" name="Answers[' + dem + '].ID" value="0"/>'
+                        +'<div id="dapan_' + dem + '">'
+                            +'<div class="col-sm-12">'
+                                +'<label for="recipient-name" class="col-form-label">Đáp án ' + (dem + 1) + ':</label>'
+                            +'</div>'
+
+                            +'<div class="col-sm-6">'
+                                +'<input type="text" name="Answers[' + dem + '].Description" class="form-control" required/>'
+                            +'</div>'
+                            +'<div class="col-sm-3">'
+                                +'<label class="radio-inline">'
+                                    +'<input type="radio" name="Status" value="' + dem + '">Đáp án đúng'
+                                +'</label>'
+                            +'</div>'
+                            +'<div class="col-sm-3" id="Del_' + dem + '">'
+                                +'<a class="btn btn-danger" href="#" onclick="DeleteInput(' + dem + ')"><i class="fa fa-times"></i></a>'
+                            +'</div>'
+                        +'</div>';
+
+                $('#IsAnswer').append(str);
+                dem++;
+                } else {
+                    return;
+                }
+
+            });
+        });
+        function DeleteInput(id) {
+            $('#dapan_' + id).remove();
+            if (id != 2) {
+                var str =
+                        '<div class="col-sm-3" id="Del_' + (id - 1) + '">'
+                                +'<a class="btn btn-danger" href="#" onclick="DeleteInput(' + (id - 1) + ')"><i class="fa fa-times"></i></a>'
+                            +'</div>'
+                + '</div>';
+                $('#dapan_'+ (id - 1)).append(str);
+            }
+
+            dem--;
+        }
+
+
+    </script>
+}
+
+
+

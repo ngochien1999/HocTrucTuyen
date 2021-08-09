@@ -1,0 +1,311 @@
+﻿
+@{
+    ViewBag.Title = "Câu hỏi trắc nghiệm";
+    Layout = "~/Areas/Admin/Views/Shared/_layout.cshtml";
+    int dem = 1;
+    var Mutiple = ViewBag.Mutiple as HocTrucTuyen.Models.Entity.MutipleChoice;
+}
+
+
+@model PagedList.IPagedList<HocTrucTuyen.Models.Entity.Question>
+@using PagedList.Mvc
+
+
+
+<div id="page-wrapper" style="min-height: 356px;">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header">Câu hỏi trắc nghiệm của bài: <span style="color:blue">@Mutiple.Title</span></h1>
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+        <div class="row">
+            @if (TempData["add_success"] != null)
+            {
+                <div class="alert alert-success text-center" id="AlertBox">
+                    @TempData["add_success"]
+                </div>
+            }
+        </div>
+        <!-- /.row -->
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel panel-default">
+                    @*<div class="panel-heading">
+                            DataTables Advanced Tables
+                        </div>*@
+                    <!-- /.panel-heading -->
+                    <div class="panel-body">
+                        <div class="table-responsive">
+                            <div id="dataTables-example_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+                                <div class="row">
+                                    <div class="col-sm-6" style="margin-bottom: 10px;">
+                                        <div class="right">
+                                            <button class="btn btn-success" data-toggle="modal" data-target="#add"><i class="fa fa-plus"></i>Thêm mới</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <table class="table table-striped table-bordered table-hover dataTable no-footer" id="dataTables-example" role="grid" aria-describedby="dataTables-example_info">
+                                            <thead>
+                                                <tr role="row">
+                                                    <th>
+                                                        STT
+                                                    </th>
+                                                    <th class="text-center">
+                                                        Câu hỏi
+                                                    </th>
+                                                    <th class="text-center">
+                                                        Các đáp án
+                                                    </th>
+                                                    <th>
+
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @if (Model != null)
+                                                {
+                                                    foreach (var item in Model)
+                                                    {
+                                                        <tr class="gradeA odd" role="row">
+                                                            <td class="sorting_1">@dem</td>
+                                                            <td>@item.Description</td>
+                                                            <td>
+                                                                <div class="scoll_description">
+                                                                    @foreach (var jtem in item.Answers)
+                                                                    {
+                                                                        <p>@jtem.Description</p>
+                                                                    }
+                                                                </div>
+                                                            </td>
+                                                            <td class="center text-center" style="width: 150px">
+                                                                <a class="btn btn-primary" href="/Admin/MutipleChoice/EditQues_Ans/@item.ID" title="Sửa câu hỏi"><i class="fa fa-edit"></i></a>
+                                                                <button class="btn btn-danger btnDelete" title="Xóa câu hỏi" data-id="@item.ID"><i class="fa fa-times"></i></button>
+                                                            </td>
+                                                        </tr>
+                                                        dem++;
+                                                    }
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                @Html.PagedListPager(Model, page => Url.Action("Detail", new { ID = Mutiple.ID, page, pagesize = Model.PageSize }));
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- /.panel-body -->
+                </div>
+                <!-- /.panel -->
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+</div>
+
+<!-- Modal ADD-->
+<div class="modal fade" id="add" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Thêm mới bài trắc nghiệm</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body col-12">
+                @using (Html.BeginForm("AddQuesAns", "MutipleChoice", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    <input type="hidden" name="MutipleChoice_ID" value="@Mutiple.ID"/>
+                    <div class="form-group col-sm-12">
+                        <label for="recipient-name" class="col-form-label">Câu hỏi:</label>
+                        <textarea class="form-control" rows="4" name="Question" required></textarea>
+                    </div>
+                    <div class="form-group col-sm-12" id="IsAnswer">
+                        <div id="dapan_0">
+                            <div class="col-sm-12">
+                                <label for="recipient-name" class="col-form-label">Đáp án 1:</label>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <input type="text" name="Answers[0].Description" class="form-control" required/>
+                            </div>
+                            <div class="col-sm-3">
+                                <label class="radio-inline">
+                                    <input type="radio" name="Status" value="0">Đáp án đúng
+                                </label>
+                            </div>
+                           
+                        </div>
+                        <div id="dapan_1">
+                            <div class="col-sm-12">
+                                <label for="recipient-name" class="col-form-label">Đáp án 2:</label>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <input type="text" name="Answers[1].Description" class="form-control" required/>
+                            </div>
+                            <div class="col-sm-3">
+                                <label class="radio-inline">
+                                    <input type="radio" name="Status" value="1">Đáp án đúng
+                                </label>
+                            </div>
+                            
+                        </div>
+
+                       
+                    </div>
+                    
+                    <div class="form-group col-sm-12">
+                        <a href="#" id="addAns">Thêm đáp án</a>
+                    </div>
+                    <div class="form-group col-sm-12">
+                        <button type="submit" class="btn btn-primary" id="btnSubmit">Thêm mới</button>
+                    </div>
+                }
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section jsFooter{
+
+    <script type="text/javascript">
+        var dem = 2;
+        $(document).ready(function () {
+            $("#btnSubmit").click(function () {
+                if (!$("input[name='Status']:checked").val()) {
+                    alert('Bạn chưa chọn đáp án đúng!');
+                    return false;
+                }
+            });
+        });
+
+
+        $(function () {
+            //nếu không có thao tác gì thì ẩn đi
+            $('#AlertBox').removeClass('hide');
+
+            //Sau khi hiển thị lên thì delay 1s và cuộn lên trên sử dụng slideup
+            $('#AlertBox').delay(2000).slideUp(500);
+
+
+            $('.btnDelete').off('click').on('click', function () {
+                const notice = PNotify.notice({
+                    title: 'Thông báo',
+                    text: 'Bạn thật sự muốn xóa?',
+                    icon: 'fa fa-question-circle',
+                    width: '360px',
+                    minHeight: '110px',
+                    hide: false,
+                    closer: false,
+                    sticker: false,
+                    destroy: true,
+                    stack: new PNotify.Stack({
+                        dir1: 'down',
+                        modal: true,
+                        firstpos1: 25,
+                        overlayClose: false
+                    }),
+                    modules: new Map([
+                        ...PNotify.defaultModules,
+                        [PNotifyConfirm, {
+                            confirm: true
+                        }]
+                    ])
+                });
+
+                notice.on('pnotify:confirm', () =>
+                    $.ajax({
+                        data: { ID: $(this).data('id') },
+                        url: '/Admin/MutipleChoice/DeleteQuestion',
+                        dataType: 'Json',
+                        type: 'POST',
+                        success: function (res) {
+                            if (res.status == true) {
+
+                                window.location.href = "/Admin/MutipleChoice/Detail/" + @Mutiple.ID;
+                                PNotify.success({
+                                    title: 'THÔNG BÁO!!',
+                                    text: 'Xóa bài trắc nghiệm thành công.'
+                                });
+                            } else {
+
+                                window.location.href = "/Admin/MutipleChoice/Detail/" + @Mutiple.ID;
+                                PNotify.error({
+                                    title: 'THÔNG BÁO!!',
+                                    text: 'Xóa bài trắc nghiệm KHÔNG thành công.'
+                                });
+                            }
+                        }
+                    })
+
+                );
+
+
+            });
+
+            
+
+             $('#addAns').off('click').on('click', function () {
+                 if (dem == 2 || dem == 3 || dem == 4) {
+                     if (dem == 3 || dem == 4)
+                         $('#Del_' + (dem - 1)).remove();
+                    var str =
+                        '<div id="dapan_' + dem + '">'
+                            +'<div class="col-sm-12">'
+                                +'<label for="recipient-name" class="col-form-label">Đáp án ' + (dem + 1) + ':</label>'
+                            +'</div>'
+
+                            +'<div class="col-sm-6">'
+                                +'<input type="text" name="Answers[' + dem + '].Description" class="form-control" required/>'
+                            +'</div>'
+                            +'<div class="col-sm-3">'
+                                +'<label class="radio-inline">'
+                                    +'<input type="radio" name="Status" value="' + dem + '">Đáp án đúng'
+                                +'</label>'
+                            +'</div>'
+                            +'<div class="col-sm-3" id="Del_' + dem + '">'
+                                +'<a class="btn btn-danger" href="#" onclick="DeleteInput(' + dem + ')"><i class="fa fa-times"></i></a>'
+                            +'</div>'
+                        +'</div>';
+
+                $('#IsAnswer').append(str);
+                dem++;
+                } else {
+                    return;
+                }
+                
+            });
+        });
+        function DeleteInput(id) {
+            $('#dapan_' + id).remove();
+            if (id != 2) {
+                var str =
+                        '<div class="col-sm-3" id="Del_' + (id - 1) + '">'
+                                +'<a class="btn btn-danger" href="#" onclick="DeleteInput(' + (id - 1) + ')"><i class="fa fa-times"></i></a>'
+                            +'</div>'
+                + '</div>';
+                $('#dapan_'+ (id - 1)).append(str);
+            }
+            
+            dem--;
+        }
+    </script>
+}
+
+
+
+
+

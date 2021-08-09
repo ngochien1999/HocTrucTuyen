@@ -1,0 +1,45 @@
+﻿
+@{
+    ViewBag.Title = "Lịch sử thi trắc nghiệm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int dem = 1;
+}
+@model PagedList.IPagedList<HocTrucTuyen.Models.Entity.Test>
+@using PagedList.Mvc
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-12 col-lg-12">
+            <div class="single-course-wrap">
+                <div class="single-course-cont-section">
+                    <h2>Lịch sử thi trắc nghiệm</h2>
+                </div>
+                <div class="single-course-cont-section entry-content">
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <th scope="col">Số thứ tự</th>
+                                <th scope="col">Kết quả</th>
+                                <th scope="col">Ngày thi</th>
+                            </tr>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@dem</td>
+                                    <td><a>@item.Result</a></td>
+                                    <td><a>@item.CreatedDate.Value.ToString("dd/MM/yyyy")</a></td>
+                                    <td></td>
+                                </tr>
+                                dem++;
+                            }
+                        </tbody>
+                    </table>
+                    @Html.PagedListPager(Model, page => Url.Action("HistoryTest", new { page, pagesize = Model.PageSize }))
+                </div>
+
+            </div><!-- .single-course-wrap -->
+        </div><!-- .col -->
+    </div><!-- .row -->
+</div>
+

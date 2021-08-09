@@ -1,0 +1,136 @@
+﻿
+@{
+    ViewBag.Title = "Exercise_TH3";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var lstquestion = ViewBag.lstQuestion as List<HocTrucTuyen.Models.Entity.Question>;
+    var lstanswer = ViewBag.lstAnswer as List<HocTrucTuyen.Models.Entity.Answer>;
+    int stt = 1, dem = 1;
+    int count = lstquestion.Count / 2;
+    var db = new HocTrucTuyen.Models.Entity.HocTrucTuyenEntities();
+    var listQuestion = db.Questions.Where(x => x.Subject == "PHP" && x.Category == 1).ToList(); ;
+    int n = 25;
+}
+<section class="featured-courses horizontal-column courses-wrap">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <header class="heading flex justify-content-between align-items-center">
+                    <h2 class="entry-title">Trắc nghiệm bài 1</h2>
+
+                </header>
+                <!-- .heading -->
+            </div>
+            <!-- .col -->
+
+            @if (listQuestion.Count > n)
+            {
+                int len = listQuestion.Count;
+                Random random = new Random();
+                if (n < len)
+                {
+                    while (n-- > 0)
+                    {
+
+                        len = listQuestion.Count;
+                        int index = random.Next(0, len - 1);
+                        var item = listQuestion[index];
+                        listQuestion.RemoveAt(index);
+
+                        {
+                            <div class="col-12 col-lg-6">
+                                <div class="course-content flex flex-wrap justify-content-between align-content-lg-stretch">
+                                    <div class="col-md-12">
+                                        <fieldset>
+                                            @*<legend>*@
+                                            <div class="clearfix">
+                                                Câu &nbsp<strong>@stt.</strong>
+                                                <span>
+                                                    @item.Description
+                                                    <input type="hidden" name="Question_ID" value="@item.ID" />
+                                                </span>
+                                            </div>
+                                            @*</legend>*@
+
+                                            <div class="clearfix">
+
+                                                @foreach (var jtem in lstanswer)
+                                                {
+                                                    if (jtem.Question_ID == item.ID)
+                                                    {
+                                                        <div class="col-md-12">
+                                                            <label>
+                                                                <input type="radio" name="Answer_@item.ID" data-questionid="@item.ID" value="@jtem.ID">
+                                                                <span>@jtem.Description</span>
+                                                                <br>
+                                                            </label>
+                                                        </div>
+                                                    }
+                                                }
+
+                                            </div>
+                                        </fieldset>
+                                    </div>
+                                </div>
+                                <!-- .course-content -->
+                            </div>
+                            stt++;
+                        }
+                    }
+
+                }
+            }
+            <div class="col-12 col-lg-12" style="margin-left: 25pc;">
+                <div class="col-md-4">
+                    <button id="BtnExcercise_AV2" class="btn btn-lg btn-success">Nộp bài và xem kết quả</button>
+                </div>
+                <!-- .course-content -->
+            </div>
+            <!-- .col -->
+
+
+        </div>
+        <!-- .row -->
+    </div>
+    <!-- .container -->
+</section>
+
+
+@section jsFooter{
+    <script>
+
+        $(document).ready(function () {
+            $('#BtnExcercise_AV2').click(function () {
+                var answer = $('input[type="radio"]:checked');
+                if (answer.length < 25) {
+                    alert("Bạn còn câu hỏi chưa chọn đáp án. Vui lòng kiểm tra lại.");
+                    return;
+                }
+
+                var List = [];
+                $.each(answer, function (i, item) {
+                    List.push({
+                        Answer_ID: $(item).val(),
+                        Question_ID: $(item).data('questionid')
+                    });
+                });
+
+                //Phương thức Ajax dùng để đẩy lên Controller
+                $.ajax({
+                    url: '/KT/CheckExcercise',
+                    data: { Model: JSON.stringify(List) },
+                    dataType: 'Json',
+                    type: 'POST',
+                    success: function (res) {
+                        if (res.status == true) {
+                            window.location.href = "/ketqua/" + res.result + "/" + res.count;
+                        }
+                    }
+                });
+            });
+        });
+
+    </script>
+
+}
+
+

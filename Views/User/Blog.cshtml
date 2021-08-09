@@ -1,0 +1,372 @@
+﻿
+@{
+    ViewBag.Title = "Blog";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!DOCTYPE html>
+
+
+<html lang="zxx">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="~/Asset/css/bootstrap.min.css">
+    <link href="~/Asset/user/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <!-- FontAwesome CSS -->
+    <link rel="stylesheet" href="~/Asset/css/font-awesome.min.css">
+
+   
+    <link rel="stylesheet" href="~/Asset/css/elegant-fonts.css">
+    <link href="~/Asset/Blog/css/style-starter.css" rel="stylesheet" />
+    <!-- themify-icons CSS -->
+     <link rel="stylesheet" href="~/Asset/css/themify-icons.css">
+
+        <link href="~/Asset/Admin/notify/css/BrightTheme.css" rel="stylesheet" />
+        <link href="~/Asset/Admin/notify/css/PNotify.css" rel="stylesheet" />
+        <link href="~/Asset/Admin/notify/css/PNotifyBootstrap3.css" rel="stylesheet" />
+        <link href="~/Asset/Admin/notify/css/PNotifyConfirm.css" rel="stylesheet" />
+
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="~/Asset/css/swiper.min.css">
+
+    <!-- Custom CSS -->
+    @*<link href="~/Asset/user/css/startmin.css" rel="stylesheet">*@
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="~/Asset/style.css">
+
+
+
+
+</head>
+<body>
+   
+    </section>
+    <!-- //w3l-banner-slider-main -->
+    <section class="w3l-mag-main">
+        <!--/mag-content-->
+        <div class="mag-content-inf py-5">
+            <div class="container">
+                <div class="banner-bottom-sechny py-md-4">
+                    <h3 class="hny-title text-center">Tin tức <span>gần đây</span></h3>
+                  @* // <marquee>www.thietkemenu.net</marquee>*@
+
+                    <div class="ban-content-inf row py-lg-3">
+                        <div class="maghny-gd-1 col-lg-6">
+                            <div class="maghny-grid">
+                                <figure class="effect-lily">
+
+                                    <marquee style="        background-color: wheat;
+        border: green 2px SOLID
+" id="marq" scrollamount="5" direction="right" loop="30" scrolldelay="0" onmouseover="this.stop()" onmouseout="this.start() ">
+                                        <a href="Link"><img src="~/Asset/images/1.jpg" title="Ghi chú cho ảnh" width="150px" height="117px" /> </a>
+
+                                        <a href="Link"><img src="~/Asset/images/2.jpg" title="Ghi chú cho ảnh" width="150px" height="117px" /> </a>
+                                                                               
+                                        <a href="Link"><img src="~/Asset/images/3.jpg" title="Ghi chú cho ảnh" width="150px" height="117px" /> </a>
+                                    </marquee>
+                                    <figcaption class="w3set-hny">
+                                        <div>
+                                            <h4 class="top-text">
+                                                </span>
+                                            </h4>
+                                            <p>Jan.20.2020 </p>
+                                        </div>
+
+                                    </figcaption>
+                                </figure>
+                            </div>
+                        </div>
+                        <div class="maghny-gd-1 col-lg-6">
+                            <div class="row">
+                                <div class="maghny-gd-1 col-md-6">
+                                    <div class="maghny-grid">
+                                        <figure class="effect-lily">
+                                            <img class="img-fluid" src="~/Asset/images/h2.jpg" style="width:300px">
+                                            <figcaption>
+                                                <div>
+
+                                                    <p>Jan.20.2020 </p>
+                                                </div>
+
+                                            </figcaption>
+                                        </figure>
+                                    </div>
+                                    <h5 class="top-title">
+
+                                        <ul>
+                                            <li>@Html.ActionLink("Học sinh lớp 6 đến lớp 9 nên học ngôn ngữ lập trình nào?", "b1", "User") </li>
+                                        </ul>
+
+                                    </h5>
+
+                                    <div class="mag-post-meta mt-3">
+                                        <span class="meta-author text-uppercase">
+                                            <span>By&nbsp;</span><a href="#"
+                                                                    class="author-name">
+                                                Ngọc
+                                                Hiển
+                                            </a>
+                                        </span>
+                                        <span class="author-date">Jan 5, 2020</span>
+                                    </div>
+                                    <a href="#" class="read-more btn mt-3">Read More</a>
+                                </div>
+                                <div class="maghny-gd-1 col-md-6">
+                                    <div class="maghny-grid">
+                                        <figure class="effect-lily">
+                                            <img class="img-fluid" src="~/Asset/images/h3.png">
+                                            <figcaption>
+                                                <div>
+
+                                                    <p>Jan.20.2020 </p>
+                                                </div>
+
+                                            </figcaption>
+                                        </figure>
+                                    </div>
+                                    <h5 class="top-title">
+                                        <ul>
+                                            <li>@Html.ActionLink("Những trang web học lập trình cho học sinh cấp 2", "b2", "User")</li>
+                                        </ul>
+
+
+                                    </h5>
+                                    <div class="mag-post-meta mt-3">
+                                        <span class="meta-author text-uppercase">
+                                            <span>By&nbsp;</span><a href="#"
+                                                                    class="author-name">
+                                                Ngọc
+                                                Hiển
+                                            </a>
+                                        </span>
+                                        <span class="author-date">Jan 5, 2020</span>
+                                    </div>
+                                    <a href="#" class="read-more btn mt-3">Read More</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="blog-inner-grids py-md-4 row">
+                    <div class="mag-content-left-hny col-lg-8">
+                        <!--/mag-hny-content-1-->
+                        <div class="mag-hny-content">
+                            <h3 class="hny-title">Bài viết <span>mới nhất</span></h3>
+                            <!--/mag-left-grid-1-->
+                            <div class="maghny-grids-inf row">
+                                <div class="maghny-gd-1 col-lg-4 col-md-6">
+                                    <div class="maghny-grid">
+                                        <figure class="effect-lily">
+                                            <img class="img-fluid" src="~/Asset/images/qq.jpg" alt="" style="width:300px">
+                                            <figcaption>
+                                                <div>
+                                                    
+                                                    <p>Jan.20.2020 </p>
+                                                </div>
+
+                                            </figcaption>
+                                        </figure>
+                                    </div>
+                                    <h5>
+                                        <ul>
+                                            <li>@Html.ActionLink("  Sinh viên IT có nên đi làm thêm ? Làm công việc gì?", "b3", "User")</li>
+                                        </ul>
+
+
+                                    </h5>
+
+                                    <div class="mag-post-meta mt-3">
+                                        <a href="#">
+                                            <img src="assets/images/admin.jpg"
+                                                 class="img-fluid rounded-circle admin-img" alt="">
+                                        </a> <span class="meta-author">
+                                            <span>By&nbsp;</span><a href="#" class="author-name">
+                                                Ngọc
+                                                Hiển
+                                            </a>
+                                        </span>
+                                        <span class="author-date">Jan 5, 2020</span>
+                                    </div>
+                                </div>
+                                <div class="maghny-gd-1 col-lg-4 col-md-6">
+                                    <div class="maghny-grid">
+                                        <figure class="effect-lily">
+                                            <img class="img-fluid" src="~/Asset/images/aa.jpg" alt="">
+                                            <figcaption>
+                                                <div>
+                                                  
+                                                    <p>Jan.20.2020 </p>
+                                                </div>
+
+                                            </figcaption>
+                                        </figure>
+                                    </div>
+                                    <h5>
+                                        <ul>
+                                            <li>@Html.ActionLink("Sinh viên trái ngành có chuyển sang học LT được không?", "b4", "User")</li>
+                                        </ul>
+
+                                    </h5>
+
+                                    <div class="mag-post-meta mt-3">
+                                        <a href="#">
+                                            <img src="assets/images/admin.jpg"
+                                                 class="img-fluid rounded-circle admin-img" alt="">
+                                        </a><span class="meta-author">
+                                            <span>By&nbsp;</span><a href="#" class="author-name">
+                                                Ngọc
+                                                Hiển
+                                            </a>
+                                        </span>
+                                        <span class="author-date">Jan 5, 2020</span>
+                                    </div>
+                                </div>
+                                <div class="maghny-gd-1 col-lg-4 col-md-6">
+                                    <div class="maghny-grid">
+                                        <figure class="effect-lily">
+                                            <img class="img-fluid" src="~/Asset/images/game.png" alt="">
+                                            <figcaption>
+                                                <div>
+                                                   
+                                                    <p>Jan.20.2020 </p>
+                                                </div>
+
+                                            </figcaption>
+                                        </figure>
+                                    </div>
+                                    <h5>
+                                        <ul>
+                                            <li>@Html.ActionLink(" 5 ứng dụng game học lập trình cho các bạn từ 9 đến 15 tuổi", "b5", "User")</li>
+                                        </ul>
+
+                                    </h5>
+                                    <div class="mag-post-meta mt-3">
+                                        <a href="#">
+                                            <img src="assets/images/admin.jpg"
+                                                 class="img-fluid rounded-circle admin-img" alt="">
+                                        </a> <span class="meta-author">
+                                            <span>By&nbsp;</span><a href="#" class="author-name">
+                                              Ngọc Hiển
+                                            </a>
+                                        </span>
+                                        <span class="author-date">Jan 5, 2020</span>
+                                    </div>
+                                </div>
+                                <div class="maghny-gd-1 col-lg-4 col-md-6" style="margin-top:50px">
+                                    <div class="maghny-grid">
+                                        <figure class="effect-lily">
+                                            <img class="img-fluid" src="~/Asset/images/java.jpg" alt="">
+                                            <figcaption>
+                                                <div>
+                                                  
+                                                    <p>Jan.20.2020 </p>
+                                                </div>
+
+                                            </figcaption>
+                                        </figure>
+                                    </div>
+                                    <h5>
+                                        <ul>
+                                            <li>@Html.ActionLink("Tự học hiệu quả với tài liệu lập trình giao diện Swing trong Java", "b6", "User")</li>
+                                        </ul>
+
+                                    </h5>
+                                    <div class="mag-post-meta mt-3">
+                                        <a href="#">
+                                            <img src="assets/images/admin.jpg"
+                                                 class="img-fluid rounded-circle admin-img" alt="">
+                                        </a> <span class="meta-author">
+                                            <span>By&nbsp;</span><a href="#" class="author-name">
+                                               Ngọc Hiển
+                                            </a>
+                                        </span>
+                                        <span class="author-date">Jan 5, 2020</span>
+                                    </div>
+                                </div>
+                                <div class="maghny-gd-1 col-lg-4 col-md-6" style="margin-top:50px">
+                                    <div class="maghny-grid">
+                                        <figure class="effect-lily">
+                                            <img class="img-fluid" src="~/Asset/images/it.jpg" alt="">
+                                            <figcaption>
+                                                <div>
+                                                  
+                                                    <p>Jan.20.2020 </p>
+                                                </div>
+
+                                            </figcaption>
+                                        </figure>
+                                    </div>
+                                    <h5>
+                                        <ul>
+                                            <li>@Html.ActionLink("  Top 4 những sai lầm của sinh viên IT", "b7", "User")</li>
+                                        </ul>
+
+                                    </h5>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    &nbsp;&nbsp;&nbsp;&nbsp;
+                              
+                                 
+                                    <div class="mag-post-meta mt-3">
+                                        <a href="#">
+                                            <img src="assets/images/admin.jpg"
+                                                 class="img-fluid rounded-circle admin-img" alt="">
+                                        </a> <span class="meta-author">
+
+                                        
+                                         
+                                          
+                                            &nbsp;&nbsp;&nbsp;&nbsp;<span>By&nbsp;</span><a href="#" class="author-name">
+                                                Ngọc Hiển
+                                            </a>
+                                        </span>
+                                        <span class="author-date">Jan 5, 2020</span>
+                                    </div>
+                                </div>
+                                <div class="maghny-gd-1 col-lg-4 col-md-6" style="margin-top:50px">
+                                    <div class="maghny-grid">
+                                        <figure class="effect-lily">
+                                            <img class="img-fluid" src="~/Asset/images/sv.jpg" alt="">
+                                            <figcaption>
+                                                <div>
+                                                   
+                                                    <p>Jan.20.2020 </p>
+                                                </div>
+
+                                            </figcaption>
+                                        </figure>
+                                    </div>
+                                    <h5>
+                                        <ul>
+                                            <li>@Html.ActionLink("Bí kíp phỏng vấn dành cho sinh viên CNTT năm cuối khi tìm việc", "b8", "User")</li>
+                                        </ul>
+
+                                    </h5>
+                                    <div class="mag-post-meta mt-3">
+                                        <a href="#">
+                                            <img src="assets/images/admin.jpg"
+                                                 class="img-fluid rounded-circle admin-img" alt="">
+                                        </a> <span class="meta-author">
+                                            <span>By&nbsp;</span><a href="#" class="author-name">
+                                                John
+                                                Brain
+                                            </a>
+                                        </span>
+                                        <span class="author-date">Jan 5, 2020</span>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+                   
+                                </div>
+                            </div>
+</body>
+<
+

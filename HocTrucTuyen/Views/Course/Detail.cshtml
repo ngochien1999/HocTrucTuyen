@@ -1,0 +1,236 @@
+﻿@{
+    ViewBag.Title = "Chi tiết bài giảng";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var detailCourse = ViewBag.Course as HocTrucTuyen.Models.DTO.CourseDTO;
+    var course_detail = ViewBag.CourseDetail as List<HocTrucTuyen.Models.Entity.Course_Detail>;
+    var lstcourse_seen = Session["Course_Seen"] as List<HocTrucTuyen.Models.DTO.CourseDTO>;
+    var user = Session["user"] as HocTrucTuyen.Models.Entity.User;
+    var listReview = ViewBag.lstReview as List<HocTrucTuyen.Models.DTO.ReviewDTO>;
+    var mutiple = ViewBag.MutipleChoice as List<HocTrucTuyen.Models.Entity.MutipleChoice>;
+    int dem = 1;
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-12 col-lg-12">
+            <div class="single-course-wrap">
+                <div class="single-course-cont-section">
+                    <h1>@detailCourse.Title</h1>
+                </div>
+                <div class="course-info flex flex-wrap align-items-center">
+                    <div class="course-author flex flex-wrap align-items-center mt-3">
+                        @*<img src="images/course-author.jpg" alt="">*@
+
+                        <div class="author-wrap">
+                            <label class="m-0">Tác giả</label>
+                            <div class="author-name"><a href="#">@detailCourse.Teacher_Name</a></div>
+                        </div><!-- .author-wrap -->
+                        <div class="author-wrap" style="margin-left: 100px;">
+                            <label class="m-0">Đăng ngày: </label>
+                            <div class="author-name"><a href="#">@detailCourse.CreatedDate.Value.ToString("dd/MM/yyyy") lúc @detailCourse.CreatedDate.Value.ToString("hh:mm:ss tt")</a></div>
+                        </div><!-- .author-wrap -->
+                    </div><!-- .course-author -->
+                    <div class="buy-course mt-3">
+                        @*<a class="btn" href="#">Làm bài tập</a>*@
+                    </div>
+                </div><!-- .course-info -->
+
+                <div class="single-course-cont-section">
+                    @Html.Raw(detailCourse.Description)
+                </div>
+                <div class="single-course-cont-section entry-content">
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <th scope="col">Số thứ tự</th>
+                                <th scope="col">Tên bài viết</th>
+                                <th scope="col">Ghi chú</th>
+                            </tr>
+                            @foreach (var item in course_detail)
+                            {
+                                <tr>
+                                    <td>@dem</td>
+                                    <td><a href="/Course/CourseDetail/@item.ID">@item.Name</a></td>
+                                    <td></td>
+                                </tr>
+                                dem++;
+                            }
+
+                            @foreach (var item in mutiple)
+                            {
+                                <tr>
+                                    <td>@dem</td>
+                                    <td><a href="/Test/Excecise_Course/@item.ID">@item.Title</a></td>
+                                    <td></td>
+                                </tr>
+                                dem++;
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="related-courses">
+                    <header class="entry-heading flex flex-wrap justify-content-between align-items-center">
+                        <h2 class="entry-title">Bài giảng đã xem</h2>
+
+                    </header><!-- .entry-heading -->
+
+                    <div class="row mx-m-25">
+                        @if (lstcourse_seen.Count > 0)
+                        {
+                            foreach (var item in lstcourse_seen.Take(2))
+                            {
+                                <div class="col-12 col-lg-6 px-25">
+                                    <div class="course-content">
+                                        <figure class="course-thumbnail">
+                                            <a href="/Course/Detail/@item.ID"><img src="@item.Images" alt=""></a>
+                                        </figure><!-- .course-thumbnail -->
+
+                                        <div class="course-content-wrap">
+                                            <header class="entry-header">
+                                                <h2 class="entry-title"><a href="/Course/Detail/@item.ID">@item.Title</a></h2>
+
+                                                <div class="entry-meta flex flex-wrap align-items-center">
+                                                    <div class="course-author"><a href="#">@item.Teacher_Name</a></div>
+
+                                                    <div class="course-date">@item.CreatedDate.Value.ToString("dd-MM-yyyy")</div>
+                                                </div><!-- .course-date -->
+                                            </header><!-- .entry-header -->
+
+                                            <footer class="entry-footer flex flex-wrap justify-content-between align-items-center">
+                                                <div class="course-cost">
+                                                    <span class="free-cost">Free</span>
+                                                </div><!-- .course-cost -->
+                                            </footer><!-- .entry-footer -->
+                                        </div><!-- .course-content-wrap -->
+                                    </div><!-- .course-content -->
+                                </div><!-- .col -->
+                            }
+
+                        }
+
+
+                    </div><!-- .row -->
+                </div><!-- .related-course -->
+            </div><!-- .single-course-wrap -->
+        </div><!-- .col -->
+
+        <div class="col-12 col-lg-6">
+            <div class="contact-form">
+                <h3>Đánh giá của bạn</h3>
+                @if (user != null)
+                {
+                    <form>
+                        <div style="color: gold;">
+                            <input type="hidden" id="point_review" class="rating" data-filled="fa fa-star fa-3x" data-empty="fa fa-star-o fa-3x" data-start="5" data-stop="10" />
+                        </div>
+                        <textarea placeholder="Nhập đánh giá của bạn..." id="text_review" rows="4"></textarea>
+                        <button type="submit" id="btn-review" data-userid="@user.ID">Gửi đánh giá</button>
+                    </form>
+                }
+                else
+                {
+                    <div class="col-md-12">
+                        <div class="col-md-12">
+                            <p>Bạn vui lòng đăng nhập để đánh giá khóa học</p>
+                        </div>
+                        <div class="col-md-2"></div>
+                        <div class="col-md-8">
+                            <a href="/User" class="btn btn-success btn-lg">Đăng nhập</a>
+                        </div>
+                    </div>
+                }
+
+            </div><!-- .contact-form -->
+        </div>
+
+        <div class="col-12 col-lg-6">
+            <div class="contact-info">
+                <h3>Đánh giá khóa học (@listReview.Count)</h3>
+                @if (listReview.Count == 0)
+                {
+                    <div class="col-md-12">
+                        <p>Khóa học chưa có đánh giá</p>
+                    </div>
+                }
+                else
+                {
+                    foreach (var item in listReview.Take(3))
+                    {
+                        <div class="review_course">
+                            <ul class="p-0 m-0">
+                                <li><span><i class="fa fa-user"></i></span>@item.Fullname</li>
+                                <li><span><i class="fa fa-clock-o"></i></span>@item.CreatedDate.Value.ToString("hh:mm tt")</li>
+                                <li><span><i class="fa fa-calendar-o"></i></span>@item.CreatedDate.Value.ToString("dd-MM-yyyy")</li>
+                            </ul>
+                            <div class="col-xs-5" style="color: gold; font-size:5px">
+                                <input type="hidden" value="@item.Rating" class="rating" data-filled="fa fa-star fa-3x" data-empty="fa fa-star-o fa-3x" data-start="5" data-stop="10" disabled />
+                            </div>
+                            <p>@item.Content</p>
+                        </div>
+                    }
+                }
+
+
+
+
+            </div><!-- .contact-info -->
+        </div>
+    </div><!-- .row -->
+</div>
+
+@section jsFooter{
+    <script src="~/Asset/js/rating.js"></script>
+    <script>
+        $('.rating').on('change', function () {
+            // $(this).next('.label').text($(this).val());
+            // alert($(this).val());
+            $('#point_review').val($(this).val());
+        });
+
+        $(document).ready(function () {
+            $("#btn-review").click(function () {
+            var user_id = $(this).data('userid');
+            var course_id = @detailCourse.ID;
+            var content = $('#text_review').val();
+            var rating = $('#point_review').val();
+
+                var json_review = [];
+                json_review.push({
+                    Content: content,
+                    Rating: rating,
+                    User_ID: user_id,
+                    Course_ID: course_id
+                });
+
+                console.log(json_review);
+            $.ajax({
+                url: '/Course/addReview',
+                data: { json_review: JSON.stringify(json_review) },
+                type: 'POST',
+                dataType: 'json',
+                success: function (res) {
+                    if (res.status == true) {
+                        window.location.href = "/Course/Detail/" + @detailCourse.ID;
+                        PNotify.success({
+                            title: 'THÔNG BÁO!!',
+                            text: 'Đánh giá khóa học thành công.'
+                        });
+                    } else {
+                            PNotify.error({
+                            title: 'THÔNG BÁO!!',
+                            text: 'Đã có lỗi xảy ra, bạn vui lòng đánh giá khóa học vào thời gian tới.'
+                        });
+                    }
+
+
+                }
+            });
+            });
+
+           
+});
+    </script>    
+    
+}

@@ -1,0 +1,44 @@
+﻿
+@{
+    ViewBag.Title = "Kết quả";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="featured-courses horizontal-column courses-wrap">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <header class="heading flex justify-content-between align-items-center">
+                    <h2 class="entry-title">kết quả trắc nghiệm: <span style="color: blue;">@ViewBag.result</span></h2>
+                </header>
+                <!-- .heading -->
+            </div>
+
+            <div class="col-12 col-lg-12" style="margin-left: 25pc;">
+                <div class="col-md-4">
+                    <button id="btnResult" class="btn btn-lg btn-success">Xem đáp án</button>
+                </div>
+                <!-- .course-content -->
+            </div>
+
+            <!-- .col -->
+
+        </div>
+        <!-- .row -->
+    </div>
+    <!-- .container -->
+</section>
+
+
+@section jsFooter{
+
+    <script>
+        $(document).ready(function () {
+            $('#btnResult').click(function () {
+                window.location.href = "/Test/ResultExcercise";
+            });
+        });
+
+    </script>
+
+}
